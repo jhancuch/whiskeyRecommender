@@ -24,9 +24,9 @@ dat2 = dat1[['Color','Nose','Palate','Finish']].apply(lambda x: x.str.lower(), a
 dat3 = dat2[['Color','Nose','Palate','Finish']].apply(lambda x: x.str.replace('[^\w\s]', '', regex = True), axis=0)
 
 # Remove extra white space
-dat4 = dat3.replace('s+',' ', regex = True)
+dat4 = dat3.join(dat1[['Name', 'reviewUrl']])
 
-dat5 = dat4.join(dat1[['Name', 'reviewUrl']])
+dat5 = dat4.replace('s+',' ', regex = True)
 
 # Replace html ampersand escapes
 dat6 = dat5.replace('&amp;', '&', regex = True)
@@ -49,7 +49,6 @@ dat6['Finish'] = dat6['Finish'].apply(removeStopWords)
 
 
 # Step 3: Stemming
-
 def stemming(sentence):
     wordList=sentence.split()
     stemmedSentence = [nltk.PorterStemmer().stem(word) for word in wordList]
@@ -61,7 +60,6 @@ dat6['Finish'] = dat6['Finish'].apply(stemming)
 
 
 # Step 4: Calculate Jaccard similarity
-
 def similarityScore(chosenWhiskey, dataset):
     '''
     The function takes splits the dataset between the chosen whiskey and the other whiskeys and computes the Jaccard similarity
