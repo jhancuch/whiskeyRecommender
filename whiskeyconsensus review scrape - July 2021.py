@@ -1,11 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
 
 # load libraries
-
 import os
 import time
 import requests
@@ -14,19 +11,11 @@ import pandas as pd
 import re
 
 
-# In[2]:
-
-
 # load the url associated with each review page
-
 datUrl = pd.read_pickle('./whiskeyconsensus-reviews-urls-July-2021.pkl')
 
 
-# In[3]:
-
-
 # scrape each of the reviews for the desired information
-
 nameList = []
 colorList = []
 noseList = []
@@ -94,18 +83,9 @@ datRawReviews['Nose'] = noseList
 datRawReviews['Palate'] = palateList
 datRawReviews['Finish'] = finishList
 
-print(datRawReviews.head())
-
-
-# In[4]:
-
 
 # merge scraped information with url information
-
 datRawReviews1 = pd.concat([datRawReviews, datUrl.reindex(datRawReviews.index)], axis=1)
-
-
-# In[5]:
 
 
 # subset any observations with NA
@@ -117,9 +97,6 @@ datRawReviewsUpdate = datRawReviews1[(datRawReviews1["Color"] == "NA") | (datRaw
 
 print(datRawReviews2.count())
 print(datRawReviewsUpdate.count())
-
-
-# In[6]:
 
 
 # put in the correct information by hand
@@ -463,34 +440,18 @@ newFinishCol = ["The progression of the finish is nearly the same as the palate.
                 "The finish has a little bit of baking spice but mostly consists of the burn and unpleasant aftertaste that were present on the palate."]
 
 
-# In[7]:
-
-
 # Bind new columns together
 dfTemp = pd.DataFrame(list(zip(newColorCol, newNoseCol, newPalateCol, newFinishCol)),
                columns =['Color', 'Nose', 'Palate', 'Finish'])
 
+
 # Bind with dataframe to get name and url info
 datRawReviewsUpdate2 = dfTemp.merge(datRawReviewsUpdate[['Name','reviewUrl']].reset_index(), left_index=True, right_index=True)
+
 
 # append updated dataframe to the original dataframe that didn't have any NA's
 datRawReviews3 = datRawReviews2.append(datRawReviewsUpdate2, ignore_index=True).drop(['index'], axis=1)
 
 
-# In[8]:
-
-
-os.getcwd()
-
-
-# In[9]:
-
-
+# Export data
 datRawReviews3.to_pickle("./whiskeyconsensus-reviews-raw-July-2021.pkl")
-
-
-# In[ ]:
-
-
-
-
