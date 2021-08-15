@@ -34,4 +34,5 @@ datUrl = pd.DataFrame(urlList, columns =['reviewUrl'])
 
 
 # Export data
+os.chdir('raw data/')
 datUrl.to_pickle("./whiskeyconsensus-reviews-urls.pkl")
