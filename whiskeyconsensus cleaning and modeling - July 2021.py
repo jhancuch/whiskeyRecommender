@@ -10,7 +10,7 @@ import copy
 import textdistance
 
 # Change working directory
-os.chdir(r'\Users\jwnha\Documents\Coding\whiskey recommender\raw data')
+os.chdir(r'raw data/')
 
 # Import raw data
 dat1 = pd.read_pickle('./whiskeyconsensus-reviews-raw-July-2021.pkl')
