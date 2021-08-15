@@ -86,6 +86,6 @@ def similarityScore(chosenWhiskey, dataset):
 # similarityScore('William Larue Weller (2020)', dat6)
 
 # Export dataset
-os.chdir(r'\Users\jwnha\Documents\Coding\whiskey recommender\clean data')
+os.chdir(r'clean data/')
 dat6.to_pickle("./whiskeyconsensus-dataset-July-2021.pkl")
 
