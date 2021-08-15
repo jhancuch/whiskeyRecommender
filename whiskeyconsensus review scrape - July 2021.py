@@ -12,6 +12,7 @@ import re
 
 
 # load the url associated with each review page
+os.chdir(r'raw data/')
 datUrl = pd.read_pickle('./whiskeyconsensus-reviews-urls-July-2021.pkl')
 
 
